@@ -38,16 +38,30 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 1,
+              modules: {
+                localIdentName: isDevelopmentMode ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64]',
+              },
+              importLoaders: 2,
             },
           },
           'postcss-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [
+                  path.join(__dirname, 'src', 'styles'),
+                ],
+              },
+              sourceMap: true,
+            }
+          },
         ]
       },
       {

@@ -1,0 +1,37 @@
+@import 'Fonts';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  color: #333;
+  font-family: $open-sans;
+  background-color: #f7f4f0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+ul, ol {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input, button, textarea {
+  font-family: $open-sans;
+}
+
+:global(#react-root) {
+  height: 100%
+}
