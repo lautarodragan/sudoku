@@ -15,13 +15,13 @@ export const App = () => {
   const [selectedCell, setSelectedCell] = useState(null)
 
   const onKeyPress = (event) => {
-    console.log('onKeyPress', event)
+    setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, event.key))
   }
 
   useEffect(() => {
     document.addEventListener('keypress', onKeyPress)
     return () => document.removeEventListener('keypress', onKeyPress)
-  }, [])
+  }, [selectedCell])
 
   return (
     <section className={styles.app}>
