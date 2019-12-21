@@ -27,7 +27,7 @@ export const App = () => {
   return (
     <section className={styles.app}>
       <header>Sudoku Score: 0</header>
-      <main><Board board={board} onClick={setSelectedCell} selectedCell={selectedCell} /></main>
+      <Board board={board} onClick={setSelectedCell} selectedCell={selectedCell} />
       <footer>Sudoku by <a target="_blank" href="https://tarokun.io">tarokun</a></footer>
     </section>
   )

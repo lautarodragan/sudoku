@@ -2,17 +2,20 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 100px;
+  align-items: stretch;
 }
 
 .board {
   display: grid;
-  grid-template-rows: auto auto auto auto auto auto auto auto auto;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   grid-gap: 3px;
   background-color: transparent;
+  justify-content: stretch;
+  flex: 1 1 auto;
 }
 
 .cell {
@@ -21,8 +24,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
   border: 2px solid transparent;
 
   &:hover {
