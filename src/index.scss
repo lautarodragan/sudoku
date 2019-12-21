@@ -16,6 +16,7 @@ body {
   background-color: #f7f4f0;
   font-size: 14px;
   line-height: 20px;
+  display: flex;
 }
 
 ul, ol {
@@ -33,5 +34,6 @@ input, button, textarea {
 }
 
 :global(#react-root) {
-  height: 100%
+  width: 100%;
+  height: 100%;
 }
