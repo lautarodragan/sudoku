@@ -15,7 +15,8 @@ export const App = () => {
   const [selectedCell, setSelectedCell] = useState(null)
 
   const onKeyPress = (event) => {
-    setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, event.key))
+    if (!isNaN(event.key) && event.key !== '0')
+    setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, parseInt(event.key)))
   }
 
   useEffect(() => {
