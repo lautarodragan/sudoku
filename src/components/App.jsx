@@ -10,6 +10,8 @@ const setMatrixValue = (matrix, x, y, v) =>
 
 const setArrayValue = (array, position, value) => [...array.slice(0, position), value, ...array.slice(position + 1)]
 
+const randomArrayElement = array => array[Math.floor(Math.random() * array.length)]
+
 const isNotNull = v => v !== null
 
 const getMatrixColumn = (matrix, x) => Array(matrix.length).fill(null).map((_, index) => matrix[index][x])
@@ -36,7 +38,7 @@ const createRandomSudoku = () => {
   const matrix = createMatrix()
   for (let x = 0; x < 9; x++)
     for (let y = 0; y < 9; y ++)
-      matrix[y][x] = getAvailableValues(matrix, x, y)[0]
+      matrix[y][x] = randomArrayElement(getAvailableValues(matrix, x, y))
   return matrix
 }
 
