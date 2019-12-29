@@ -14,7 +14,7 @@ const isNotNull = v => v !== null
 
 const getMatrixColumn = (matrix, x) => Array(matrix.length).fill(null).map((_, index) => matrix[index][x])
 
-const getSubMatrix = (matrix, x, y) =>  createMatrix(3, 3)
+const getRegionMatrix = (matrix, x, y) =>  createMatrix(3, 3)
   .map((row, yy) =>
     row.map((column, xx) => matrix[Math.floor(y / 3) * 3 + yy][Math.floor(x / 3) * 3 + xx])
   )
@@ -24,7 +24,7 @@ const possibleValues = Array(9).fill(null).map((_, i) => i + 1)
 const getAvailableValues = (matrix, x, y) => {
   const row = matrix[y]
   const column = getMatrixColumn(matrix, x)
-  const subMatrix = getSubMatrix(matrix, x, y)
+  const subMatrix = getRegionMatrix(matrix, x, y)
   const usedValuesRow = row.filter(isNotNull)
   const usedValuesColumn = column.filter(isNotNull)
   const usedValuesSubMatrix = subMatrix.flat().filter(isNotNull)
