@@ -46,12 +46,22 @@ export const App = () => {
 
   const onKeyPress = (event) => {
     if (!isNaN(event.key) && event.key !== '0')
-    setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, parseInt(event.key)))
+      setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, parseInt(event.key)))
+  }
+
+  const onKeyDown = event => {
+    if (event.key === 'Delete')
+      setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, null))
   }
 
   useEffect(() => {
     document.addEventListener('keypress', onKeyPress)
     return () => document.removeEventListener('keypress', onKeyPress)
+  }, [selectedCell])
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
   }, [selectedCell])
 
   return (
