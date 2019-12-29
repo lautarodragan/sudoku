@@ -30,7 +30,6 @@ const getAvailableValues = (matrix, x, y) => {
   const usedValuesSubMatrix = subMatrix.flat().filter(isNotNull)
   const usedValues = [...usedValuesRow, ...usedValuesColumn, ...usedValuesSubMatrix]
   return possibleValues.filter(v => !usedValues.includes(v))
-
 }
 
 const createRandomSudoku = () => {
