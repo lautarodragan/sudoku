@@ -16,7 +16,7 @@ const getMatrixColumn = (matrix, x) => Array(matrix.length).fill(null).map((_, i
 
 const getSubMatrix = (matrix, x, y) =>  createMatrix(3, 3)
   .map((row, yy) =>
-    row.map((column, xx) => matrix[Math.floor(y / 3) + yy][Math.floor(x / 3) + xx])
+    row.map((column, xx) => matrix[Math.floor(y / 3) * 3 + yy][Math.floor(x / 3) * 3 + xx])
   )
 
 const possibleValues = Array(9).fill(null).map((_, i) => i + 1)
