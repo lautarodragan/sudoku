@@ -10,49 +10,7 @@ const setMatrixValue = (matrix, x, y, v) =>
 
 const setArrayValue = (array, position, value) => [...array.slice(0, position), value, ...array.slice(position + 1)]
 
-const randomArrayElement = array => array[Math.floor(Math.random() * array.length)]
-
-const isNotNull = v => v !== null
-
-const getMatrixColumn = (matrix, x) => Array(matrix.length).fill(null).map((_, index) => matrix[index][x])
-
-const getRegionMatrix = (matrix, x, y) =>  createMatrix(3, 3)
-  .map((row, yy) =>
-    row.map((column, xx) => matrix[Math.floor(y / 3) * 3 + yy][Math.floor(x / 3) * 3 + xx])
-  )
-
 const possibleValues = Array(9).fill(null).map((_, i) => i + 1)
-
-const getAvailableValues = (matrix, x, y) => {
-  const row = matrix[y]
-  const column = getMatrixColumn(matrix, x)
-  const subMatrix = getRegionMatrix(matrix, x, y)
-  const usedValuesRow = row.filter(isNotNull)
-  const usedValuesColumn = column.filter(isNotNull)
-  const usedValuesSubMatrix = subMatrix.flat().filter(isNotNull)
-  const usedValues = [...usedValuesRow, ...usedValuesColumn, ...usedValuesSubMatrix]
-  return possibleValues.filter(v => !usedValues.includes(v))
-}
-
-const createFirstSudoku = () => {
-  const matrix = createMatrix()
-  for (let y = 0; y < 9; y ++)
-    for (let x = 0; x < 9; x++) {
-      if (x === 5 && y === 1) console.log(x, y, getAvailableValues(matrix, x, y))
-      matrix[y][x] = getAvailableValues(matrix, x, y)[0]
-    }
-  return matrix
-}
-
-const createRandomSudoku = () => {
-  const matrix = createMatrix()
-  for (let y = 0; y < 9; y ++)
-    for (let x = 0; x < 9; x++) {
-      if (x === 5 && y === 1) console.log(x, y, getAvailableValues(matrix, x, y))
-      matrix[y][x] = randomArrayElement(getAvailableValues(matrix, x, y))
-    }
-  return matrix
-}
 
 const pickValue = _ => _.value
 
