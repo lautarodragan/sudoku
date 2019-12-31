@@ -117,11 +117,11 @@ const createRandomSudokuRecursive = () => {
     return null
   }
 
-  const magic = recursive()
+  const points = recursive()
 
-  console.log('finished!', magic.length, magic)
+  console.log('finished!', points.length, points)
 
-  return listToMatrix(magic)
+  return listToMatrix(points)
 }
 
 export const App = () => {
