@@ -15,6 +15,7 @@ const possibleValues = Array(9).fill(null).map((_, i) => i + 1)
 const pickValue = _ => _.value
 
 const getRowFromList = (list, point) => list.filter(_ => _.y === point.y)
+
 const getColumnFromList = (list, point) => list.filter(_ => _.x === point.x)
 
 const getRegionFromList = (list, point) => list.filter(({ x, y }) =>
