@@ -35,7 +35,6 @@ const getAvailableValuesFromList = (list, point) => {
   return possibleValues.filter(v => !usedValues.includes(v))
 }
 
-
 const getNextPoint = ({ x, y }) => x < 8 ? { x: x + 1, y } : { x: 0, y: y + 1 }
 
 const getNextPointFromList = list => !list.length ? { x: 0, y: 0 } : getNextPoint(list[list.length - 1])
