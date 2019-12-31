@@ -44,6 +44,16 @@ const createFirstSudoku = () => {
   return matrix
 }
 
+const createRandomSudoku = () => {
+  const matrix = createMatrix()
+  for (let y = 0; y < 9; y ++)
+    for (let x = 0; x < 9; x++) {
+      if (x === 5 && y === 1) console.log(x, y, getAvailableValues(matrix, x, y))
+      matrix[y][x] = randomArrayElement(getAvailableValues(matrix, x, y))
+    }
+  return matrix
+}
+
 export const App = () => {
   const [board, setBoard] = useState()
   const [selectedCell, setSelectedCell] = useState(null)
