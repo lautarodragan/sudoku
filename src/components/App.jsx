@@ -54,6 +54,76 @@ const createRandomSudoku = () => {
   return matrix
 }
 
+const pickValue = _ => _.value
+
+const getRowFromList = (list, point) => list.filter(_ => _.y === point.y)
+const getColumnFromList = (list, point) => list.filter(_ => _.x === point.x)
+
+const getRegionFromList = (list, point) => list.filter(({ x, y }) =>
+  x >= Math.floor(point.x / 3) * 3 &&
+  x < Math.floor(point.x / 3) * 3 + 3 &&
+  y >= Math.floor(point.y / 3) * 3 &&
+  y < Math.floor(point.y / 3) * 3 + 3
+)
+
+const getAvailableValuesFromList = (list, point) => {
+  console.log('getAvailableValuesFromList', list, point)
+  const row = getRowFromList(list, point)
+  const column = getColumnFromList(list, point)
+  const region = getRegionFromList(list, point)
+  console.log('getAvailableValuesFromList', list, point, row, column, region)
+  const usedValuesRow = row.map(pickValue)
+  const usedValuesColumn = column.map(pickValue)
+  const usedValuesRegion = region.map(pickValue)
+  const usedValues = [...usedValuesRow, ...usedValuesColumn, ...usedValuesRegion]
+  console.log('getAvailableValuesFromList used values', list, point, usedValues)
+  return possibleValues.filter(v => !usedValues.includes(v))
+}
+
+
+const getNextPoint = ({ x, y }) => x < 8 ? { x: x + 1, y } : { x: 0, y: y + 1 }
+
+const getNextPointFromList = list => !list.length ? { x: 0, y: 0 } : getNextPoint(list[list.length - 1])
+
+const listToMatrix = list => {
+  const matrix = createMatrix()
+
+  for (const { x, y, value } of list)
+    matrix[y][x] = value
+
+  return matrix
+}
+
+const createRandomSudokuRecursive = () => {
+
+  const recursive = (list = []) => {
+    const nextPoint = getNextPointFromList(list)
+    const availableValues = getAvailableValuesFromList(list, nextPoint)
+
+    console.log('recursive availableValues', nextPoint, availableValues)
+
+    if (!availableValues.length)
+      return null
+
+    if (list.length > 15)
+      return list
+
+    for (const availableValue of availableValues) {
+      const x = recursive([...list, { ...nextPoint, value: availableValue }])
+      if (x)
+        return x
+    }
+
+    return null
+  }
+
+  const magic = recursive()
+
+  console.log('finished!', magic.length, magic)
+
+  return listToMatrix(magic)
+}
+
 export const App = () => {
   const [board, setBoard] = useState()
   const [selectedCell, setSelectedCell] = useState(null)
@@ -78,7 +148,7 @@ export const App = () => {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [selectedCell])
 
-  useEffect(() => setBoard(createFirstSudoku()), [])
+  useEffect(() => setBoard(createRandomSudokuRecursive()), [])
 
   return (
     <section className={styles.app}>
