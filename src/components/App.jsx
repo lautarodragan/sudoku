@@ -67,16 +67,13 @@ const getRegionFromList = (list, point) => list.filter(({ x, y }) =>
 )
 
 const getAvailableValuesFromList = (list, point) => {
-  console.log('getAvailableValuesFromList', list, point)
   const row = getRowFromList(list, point)
   const column = getColumnFromList(list, point)
   const region = getRegionFromList(list, point)
-  console.log('getAvailableValuesFromList', list, point, row, column, region)
   const usedValuesRow = row.map(pickValue)
   const usedValuesColumn = column.map(pickValue)
   const usedValuesRegion = region.map(pickValue)
   const usedValues = [...usedValuesRow, ...usedValuesColumn, ...usedValuesRegion]
-  console.log('getAvailableValuesFromList used values', list, point, usedValues)
   return possibleValues.filter(v => !usedValues.includes(v))
 }
 
@@ -95,17 +92,19 @@ const listToMatrix = list => {
 }
 
 const createRandomSudokuRecursive = () => {
+  let recursiveCalls = 0
+
+  console.time('recursiveSudoku')
 
   const recursive = (list = []) => {
+    recursiveCalls++
     const nextPoint = getNextPointFromList(list)
     const availableValues = getAvailableValuesFromList(list, nextPoint)
-
-    console.log('recursive availableValues', nextPoint, availableValues)
 
     if (!availableValues.length)
       return null
 
-    if (list.length > 15)
+    if (list.length > 75)
       return list
 
     for (const availableValue of availableValues) {
@@ -119,7 +118,8 @@ const createRandomSudokuRecursive = () => {
 
   const points = recursive()
 
-  console.log('finished!', points.length, points)
+  console.log('finished!', recursiveCalls, points.length)
+  console.timeEnd('recursiveSudoku')
 
   return listToMatrix(points)
 }
