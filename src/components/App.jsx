@@ -46,6 +46,20 @@ const listToMatrix = list => {
   return matrix
 }
 
+// See https://bost.ocks.org/mike/shuffle/
+const shuffleArray = array => {
+  const shuffledArray = [...array]
+
+  for (let m = shuffledArray.length; m--; m >= 0) {
+    const i = Math.floor(Math.random() * m)
+    const t = shuffledArray[m]
+    shuffledArray[m] = shuffledArray[i]
+    shuffledArray[i] = t
+  }
+
+  return shuffledArray
+}
+
 const createRandomSudokuRecursive = () => {
   let recursiveCalls = 0
 
@@ -63,7 +77,7 @@ const createRandomSudokuRecursive = () => {
     if (!availableValues.length)
       return null
 
-    for (const availableValue of availableValues) {
+    for (const availableValue of shuffleArray(availableValues)) {
       const x = recursive([...list, { ...nextPoint, value: availableValue }])
       if (x)
         return x
