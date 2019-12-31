@@ -28,10 +28,7 @@ const getAvailableValuesFromList = (list, point) => {
   const row = getRowFromList(list, point)
   const column = getColumnFromList(list, point)
   const region = getRegionFromList(list, point)
-  const usedValuesRow = row.map(pickValue)
-  const usedValuesColumn = column.map(pickValue)
-  const usedValuesRegion = region.map(pickValue)
-  const usedValues = [...usedValuesRow, ...usedValuesColumn, ...usedValuesRegion]
+  const usedValues = [...row, ...column, ...region].map(pickValue)
   return possibleValues.filter(v => !usedValues.includes(v))
 }
 
