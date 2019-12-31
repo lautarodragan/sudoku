@@ -34,11 +34,13 @@ const getAvailableValues = (matrix, x, y) => {
   return possibleValues.filter(v => !usedValues.includes(v))
 }
 
-const createRandomSudoku = () => {
+const createFirstSudoku = () => {
   const matrix = createMatrix()
-  for (let x = 0; x < 9; x++)
-    for (let y = 0; y < 9; y ++)
-      matrix[y][x] = randomArrayElement(getAvailableValues(matrix, x, y))
+  for (let y = 0; y < 9; y ++)
+    for (let x = 0; x < 9; x++) {
+      if (x === 5 && y === 1) console.log(x, y, getAvailableValues(matrix, x, y))
+      matrix[y][x] = getAvailableValues(matrix, x, y)[0]
+    }
   return matrix
 }
 
@@ -66,7 +68,7 @@ export const App = () => {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [selectedCell])
 
-  useEffect(() => setBoard(createRandomSudoku()), [])
+  useEffect(() => setBoard(createFirstSudoku()), [])
 
   return (
     <section className={styles.app}>
