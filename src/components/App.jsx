@@ -98,14 +98,15 @@ const createRandomSudokuRecursive = () => {
 
   const recursive = (list = []) => {
     recursiveCalls++
+
+    if (list.length > 80)
+      return list
+
     const nextPoint = getNextPointFromList(list)
     const availableValues = getAvailableValuesFromList(list, nextPoint)
 
     if (!availableValues.length)
       return null
-
-    if (list.length > 75)
-      return list
 
     for (const availableValue of availableValues) {
       const x = recursive([...list, { ...nextPoint, value: availableValue }])
