@@ -43,7 +43,7 @@ const createRandomSudoku = () => {
 }
 
 export const App = () => {
-  const [board, setBoard] = useState(createRandomSudoku())
+  const [board, setBoard] = useState()
   const [selectedCell, setSelectedCell] = useState(null)
 
   const onKeyPress = (event) => {
@@ -66,6 +66,8 @@ export const App = () => {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [selectedCell])
 
+  useEffect(() => setBoard(createRandomSudoku()), [])
+
   return (
     <section className={styles.app}>
       <header>Sudoku Score: 0</header>
@@ -77,7 +79,7 @@ export const App = () => {
 
 const Board = ({ board, onClick, selectedCell }) => (
   <div className={styles.board}>
-    { board.map((row, y) => row.map((value, x) =>
+    { board && board.map((row, y) => row.map((value, x) =>
       <Cell
         key={y * 9 + x}
         value={value}
