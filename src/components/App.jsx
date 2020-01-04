@@ -94,7 +94,22 @@ const createRandomSudokuRecursive = () => {
   return listToMatrix(points)
 }
 
+const createBoardWithEmptyCells = (solved) => {
+  if (!solved)
+    return solved
+
+  const matrix = createMatrix()
+  const hiddenCells = 30
+
+  for (let y = 0; y < 9; y++)
+    for (let x = 0; x < 9; x++)
+      matrix[y][x] = Math.random() > .5 ? solved[y][x] : null
+
+  return matrix
+}
+
 export const App = () => {
+  const [solvedBoard, setSolvedBoard] = useState()
   const [board, setBoard] = useState()
   const [selectedCell, setSelectedCell] = useState(null)
 
@@ -118,7 +133,8 @@ export const App = () => {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [selectedCell])
 
-  useEffect(() => setBoard(createRandomSudokuRecursive()), [])
+  useEffect(() => setSolvedBoard(createRandomSudokuRecursive()), [])
+  useEffect(() => setBoard(createBoardWithEmptyCells(solvedBoard)), [solvedBoard])
 
   return (
     <section className={styles.app}>
