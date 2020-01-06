@@ -114,19 +114,24 @@ export const App = () => {
   const [selectedCell, setSelectedCell] = useState(null)
 
   const onKeyPress = (event) => {
-    if (!isNaN(event.key) && event.key !== '0')
-      setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, parseInt(event.key)))
+    const { x, y } = selectedCell
+    if (!isNaN(event.key) && event.key !== ' ' && event.key !== '0' && board[y][x] !== solvedBoard[y][x]) {
+      setBoard(setMatrixValue(board, x, y, parseInt(event.key)))
+    }
   }
 
   const onKeyDown = event => {
+    const { x, y } = selectedCell
     if (event.key === 'Delete')
-      setBoard(setMatrixValue(board, selectedCell.x, selectedCell.y, null))
+      setBoard(setMatrixValue(board, x, y, null))
+    if (event.key === ' ')
+      console.log(solvedBoard[y][x])
   }
 
   useEffect(() => {
     document.addEventListener('keypress', onKeyPress)
     return () => document.removeEventListener('keypress', onKeyPress)
-  }, [selectedCell])
+  }, [selectedCell, board, solvedBoard])
 
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown)
