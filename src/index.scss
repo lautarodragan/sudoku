@@ -4,12 +4,7 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100%;
-}
-
 body {
-  height: 100%;
   margin: 0;
   color: #333;
   font-family: $open-sans;
@@ -31,9 +26,4 @@ a {
 
 input, button, textarea {
   font-family: $open-sans;
-}
-
-:global(#react-root) {
-  width: 100%;
-  height: 100%;
 }
